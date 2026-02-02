@@ -46,10 +46,7 @@ public class MainTestPage {
     @MethodSource("faqData")
     public void faqQuestionAnswerTest(String question, String expectedAnswer) {
 
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView();",
-                driver.findElement(mainPage.getQuestion(question))
-        );
+        mainPage.scrollToQuestion(question);
 
         clickAccordion(mainPage, question);
         String actualAnswer = getAccordionAnswer(mainPage, question);
@@ -73,14 +70,14 @@ public class MainTestPage {
 
     private String getAccordionAnswer(MainPage mainPage, String question) {
         switch (question) {
-            case "Сколько это стоит? И как оплатить?": return mainPage.getRegionAccordionPanel0();
-            case "Хочу сразу несколько самокатов! Так можно?": return mainPage.getRegionAccordionPanel1();
-            case "Как рассчитывается время аренды?": return mainPage.getRegionAccordionPanel2();
-            case "Можно ли заказать самокат прямо на сегодня?": return mainPage.getRegionAccordionPanel3();
-            case "Можно ли продлить заказ или вернуть самокат раньше?": return mainPage.getRegionAccordionPanel4();
-            case "Вы привозите зарядку вместе с самокатом?": return mainPage.getRegionAccordionPanel5();
-            case "Можно ли отменить заказ?": return mainPage.getRegionAccordionPanel6();
-            case "Я живу за МКАДом, привезёте?": return mainPage.getRegionAccordionPanel7();
+            case "Сколько это стоит? И как оплатить?": return mainPage.getTextAnswerHowMuch();
+            case "Хочу сразу несколько самокатов! Так можно?": return mainPage.getTextAnswerMultipleScooters();
+            case "Как рассчитывается время аренды?": return mainPage.getTextAnswerRentalTime();
+            case "Можно ли заказать самокат прямо на сегодня?": return mainPage.getTextAnswerOrderToday();
+            case "Можно ли продлить заказ или вернуть самокат раньше?": return mainPage.getTextAnswerReturnScooter();
+            case "Вы привозите зарядку вместе с самокатом?": return mainPage.getTextAnswerBatteryScooter();
+            case "Можно ли отменить заказ?": return mainPage.getTextAnswerOrderCancel();
+            case "Я живу за МКАДом, привезёте?": return mainPage.getTextAnswerLifeMkad();
             default: throw new IllegalArgumentException("Unknown question: " + question);
         }
     }

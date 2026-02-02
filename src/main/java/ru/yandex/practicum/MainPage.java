@@ -2,6 +2,7 @@ package ru.yandex.practicum;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,161 +13,137 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class MainPage extends PageBase {
     private WebDriverWait wait;
 
-
     @FindBy(id = "accordion__heading-0")
-    private WebElement buttonAccordionHeading0;
-
+    private WebElement buttonQuestionHowMuch;
 
     @FindBy(id = "accordion__panel-0")
-    private WebElement regionAccordionPanel0;
-
+    private WebElement textAnswerHowMuch;
 
     @FindBy(id = "accordion__heading-1")
-    private WebElement buttonAccordionHeading1;
-
+    private WebElement buttonDropdownMultipleScooters;
 
     @FindBy(id = "accordion__panel-1")
-    private WebElement regionAccordionPanel1;
-
+    private WebElement textAnswerMultipleScooters;
 
     @FindBy(id = "accordion__heading-2")
-    private WebElement buttonAccordionHeading2;
-
+    private WebElement buttonDropdownRentalTime;
 
     @FindBy(id = "accordion__panel-2")
-    private WebElement regionAccordionPanel2;
-
+    private WebElement textAnswerRentalTime;
 
     @FindBy(id = "accordion__heading-3")
-    private WebElement buttonAccordionHeading3;
-
+    private WebElement buttonDropdownOrderToday;
 
     @FindBy(id = "accordion__panel-3")
-    private WebElement regionAccordionPanel3;
-
+    private WebElement textAnswerOrderToday;
 
     @FindBy(id = "accordion__heading-4")
-    private WebElement buttonAccordionHeading4;
-
+    private WebElement buttonDropdownReturnScooter;
 
     @FindBy(id = "accordion__panel-4")
-    private WebElement regionAccordionPanel4;
-
+    private WebElement textAnswerReturnScooter;
 
     @FindBy(id = "accordion__heading-5")
-    private WebElement buttonAccordionHeading5;
-
+    private WebElement buttonDropdownBatteryScooter;
 
     @FindBy(id = "accordion__panel-5")
-    private WebElement regionAccordionPanel5;
-
+    private WebElement textAnswerBatteryScooter;
 
     @FindBy(id = "accordion__heading-6")
-    private WebElement buttonAccordionHeading6;
-
+    private WebElement buttonDropdownOrderCancel;
 
     @FindBy(id = "accordion__panel-6")
-    private WebElement regionAccordionPanel6;
-
+    private WebElement textAnswerOrderCancel;
 
     @FindBy(id = "accordion__heading-7")
-    public WebElement buttonAccordionHeading7;
-
+    private WebElement buttonDropdownLifeMkad;
 
     @FindBy(id = "accordion__panel-7")
-    private WebElement regionAccordionPanel7;
-
+    private WebElement textAnswerLifeMkad;
 
     public MainPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
-
     public void clickButtonAccordionHeading0(){
-        buttonAccordionHeading0.click();
+        buttonQuestionHowMuch.click();
     }
-
 
     public void clickButtonAccordionHeading1(){
-        buttonAccordionHeading1.click();
+        buttonDropdownMultipleScooters.click();
     }
-
 
     public void clickButtonAccordionHeading2(){
-        buttonAccordionHeading2.click();
+        buttonDropdownRentalTime.click();
     }
-
 
     public void clickButtonAccordionHeading3(){
-        buttonAccordionHeading3.click();
+        buttonDropdownOrderToday.click();
     }
-
 
     public void clickButtonAccordionHeading4(){
-        buttonAccordionHeading4.click();
+        buttonDropdownReturnScooter.click();
     }
-
 
     public void clickButtonAccordionHeading5(){
-        buttonAccordionHeading5.click();
+        buttonDropdownBatteryScooter.click();
     }
-
 
     public void clickButtonAccordionHeading6(){
-        buttonAccordionHeading6.click();
+        buttonDropdownOrderCancel.click();
     }
-
 
     public void clickButtonAccordionHeading7(){
-        buttonAccordionHeading7.click();
+        buttonDropdownLifeMkad.click();
     }
 
-    public String getButtonAccordionHeading0() {
-        return buttonAccordionHeading0.getText();
+    public String getButtonQuestionHowMuch() {
+        return buttonQuestionHowMuch.getText();
     }
 
-    public String getRegionAccordionPanel0() {
-        return regionAccordionPanel0.getText();
+    public String getTextAnswerHowMuch() {
+        return textAnswerHowMuch.getText();
     }
 
-
-    public String getRegionAccordionPanel1() {
-        return regionAccordionPanel1.getText();
+    public String getTextAnswerMultipleScooters() {
+        return textAnswerMultipleScooters.getText();
     }
 
-
-    public String getRegionAccordionPanel2() {
-        return regionAccordionPanel2.getText();
+    public String getTextAnswerRentalTime() {
+        return textAnswerRentalTime.getText();
     }
 
-
-    public String getRegionAccordionPanel3() {
-        return regionAccordionPanel3.getText();
+    public String getTextAnswerOrderToday() {
+        return textAnswerOrderToday.getText();
     }
 
-
-    public String getRegionAccordionPanel4() {
-        return regionAccordionPanel4.getText();
+    public String getTextAnswerReturnScooter() {
+        return textAnswerReturnScooter.getText();
     }
 
-
-    public String getRegionAccordionPanel5() {
-        return regionAccordionPanel5.getText();
+    public String getTextAnswerBatteryScooter() {
+        return textAnswerBatteryScooter.getText();
     }
 
-
-    public String getRegionAccordionPanel6() {
-        return regionAccordionPanel6.getText();
+    public String getTextAnswerOrderCancel() {
+        return textAnswerOrderCancel.getText();
     }
 
-
-    public String getRegionAccordionPanel7() {
-        return regionAccordionPanel7.getText();
+    public String getTextAnswerLifeMkad() {
+        return textAnswerLifeMkad.getText();
     }
 
+    public void scrollToQuestion(String questionText){
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView();",
+                driver.findElement(this.getQuestion(questionText))
+        );
+    }
 
     public By getQuestion(String questionText) {
-        return  By.xpath("//div[@class='accordion__button' and contains(text(),'" + questionText + "')]");
+        var xpath = String.format("//div[@class='accordion__button' and contains(text(),'%s')]", questionText);
+
+        return By.xpath(xpath);
     }
 }
